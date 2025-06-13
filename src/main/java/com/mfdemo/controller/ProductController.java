@@ -3,6 +3,7 @@ package com.mfdemo.controller;
 import com.mfdemo.Exception.ApiResponce;
 import com.mfdemo.dto.ProductDto;
 import com.mfdemo.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/product")
-    public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){
+    public ResponseEntity<ProductDto> addProduct(@Valid @RequestBody ProductDto productDto){
         ProductDto productDto1 = productService.addProduct(productDto);
         return new ResponseEntity<>(productDto1 , HttpStatus.CREATED);
     }
@@ -36,7 +37,7 @@ public class ProductController {
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto , @PathVariable Long id){
+    public ResponseEntity<ProductDto> updateProduct(@Valid @RequestBody ProductDto productDto , @PathVariable Long id){
         ProductDto update = productService.update(productDto, id);
         return new ResponseEntity<>(update , HttpStatus.OK);
     }

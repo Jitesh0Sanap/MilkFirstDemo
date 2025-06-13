@@ -2,8 +2,7 @@ package com.mfdemo.dto;
 
 import com.mfdemo.entitie.Inventory;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,19 +12,21 @@ public class ProductDto {
 
     private long id;
 
-    @NotBlank
+    @NotBlank(message = "Product name must not be blank")
+    @Size(min=4 , message ="Username must be min of 4 character" )
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "description must not be blank")
+    @Size(min = 5, max = 200, message = "Description must be between 10 and 500 characters")
     private String description;
 
-    @NotBlank
+    @Positive(message = "Price must be greater than zero")
     private double price;
 
-    @NotBlank
+    @NotBlank(message = "Category must not be blank")
     private String category;
 
-    @NotBlank
+    @NotBlank(message = "Unit must not be blank")
     private String unit;
 
     private Inventory inventory;
@@ -65,12 +66,12 @@ public class ProductDto {
         this.description = description;
     }
 
-    @NotBlank
+
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(@NotBlank double price) {
+    public void setPrice( double price) {
         this.price = price;
     }
 
